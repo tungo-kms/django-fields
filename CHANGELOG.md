@@ -67,3 +67,8 @@ ChangeLog
 * Changed: Code was moved to `src`.
 * Changed: Get rid of custom string class. It was replaced with string prefix.
 * Changed: Settings were changed to test with mysql.
+
+Rentlytics version
+------------------
+
+* Changed: Switch from `pycrypto` library to `pycryptodomex` library to fix vulnerability( reference: https://pycryptodome.readthedocs.io/en/latest/src/changelog.html)

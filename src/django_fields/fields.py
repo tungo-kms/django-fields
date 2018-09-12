@@ -10,8 +10,8 @@ from django.forms import fields
 from django.db import models
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from Crypto import Random
-from Crypto.Random import random
+from Cryptodome import Random
+from Cryptodome.Random import random
 
 if hasattr(settings, 'USE_CPICKLE'):
     warnings.warn(
@@ -48,15 +48,15 @@ class BaseEncryptedField(models.Field):
 
         if self.block_type is None:
             warnings.warn(
-                "Default usage of pycrypto's AES block type defaults has been "
+                "Default usage of pycryptodomex's AES block type defaults has been "
                 "deprecated and will be removed in 0.3.0 (default will become "
                 "MODE_CBC). Please specify a secure block_type, such as CBC.",
                 DeprecationWarning,
             )
         try:
-            imp = __import__('Crypto.Cipher', globals(), locals(), [self.cipher_type], -1)
+            imp = __import__('Cryptodome.Cipher', globals(), locals(), [self.cipher_type], -1)
         except:
-            imp = __import__('Crypto.Cipher', globals(), locals(), [self.cipher_type])
+            imp = __import__('Cryptodome.Cipher', globals(), locals(), [self.cipher_type])
         self.cipher_object = getattr(imp, self.cipher_type)
         if self.block_type:
             self.prefix = '$%s$%s$' % (self.cipher_type, self.block_type)
